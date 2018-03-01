@@ -1,0 +1,42 @@
+﻿@using BookstoreCore.Models.BookViewModels
+@model IEnumerable<BookInfoViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+<div>
+    <a asp-controller="Books" asp-action="Add">Add book</a>
+</div>
+
+<table>
+    <tr>
+        <th>
+            Title
+        </th>
+        <th>
+            Author
+        </th>
+    </tr>
+    
+    @foreach (BookInfoViewModel item in Model)
+    {
+        <tr>
+            <td>
+                @item.BookTitle
+            </td>
+            <td>
+                @item.Authors
+            </td>
+            <td>
+                <a asp-action="Edit" asp-controller="Books" 
+                   asp-route-bookID="@item.BookID">Edit</a>
+            </td>
+            <td>
+                <a asp-controller="Books" asp-action="Delete"
+                   asp-route-bookID="@item.BookID">Delete</a>
+            </td>
+        </tr>
+    }
+</table>

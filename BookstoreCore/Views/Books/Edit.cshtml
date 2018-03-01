@@ -1,0 +1,40 @@
+﻿@using BookstoreCore.Models.BookViewModels;
+@using Microsoft.AspNetCore.Mvc.Rendering;
+
+@model AddEditBookViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.0.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
+
+<h2>Edit</h2>
+
+<form asp-action="Edit" asp-controller="Books">
+    @Html.HiddenFor(m => m.Id)
+
+    <div>
+        <label asp-for="Title"></label>
+        <input asp-for="Title" type="text" />
+        <span asp-validation-for="Title"></span>
+    </div>
+
+    <div>
+        <label asp-for="Authors"></label>
+        <select asp-for="AuthorID"
+                asp-items="(IEnumerable<SelectListItem>)Model.Authors"></select>
+    </div>
+
+    <div>
+        <button>Save</button>
+    </div>
+</form>
+
+
+
+
+
+

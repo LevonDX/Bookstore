@@ -1,0 +1,26 @@
+﻿@using BookstoreCore.Models.BookViewModels;
+@using Microsoft.AspNetCore.Mvc.Rendering;
+
+@model AddEditBookViewModel
+
+@{
+    ViewData["Title"] = "Add";
+}
+
+<h2>Add</h2>
+
+<form asp-action="Add" asp-controller="Books">
+    <div>
+        <label asp-for="Title"></label>
+        <input asp-for="Title" type="text" />
+    </div>
+
+    <div>
+        <label asp-for="Authors"></label>
+        <select asp-for="AuthorID" asp-items="(IEnumerable<SelectListItem>)Model.Authors"> </select>
+    </div>
+
+    <div>
+        <button>Save</button>
+    </div>
+</form>

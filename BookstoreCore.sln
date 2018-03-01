@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookstoreCore", "BookstoreCore\BookstoreCore.csproj", "{9DDC64A6-0DF2-4CF1-A99B-B50B9CE6F2EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookstoreCore", "BookstoreCore\BookstoreCore.csproj", "{9DDC64A6-0DF2-4CF1-A99B-B50B9CE6F2EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{BE9F72A4-1924-4332-846B-8BB75CB8A6CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{BE9F72A4-1924-4332-846B-8BB75CB8A6CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -7,5 +7,14 @@ namespace Domain.Entities
 {
     public class ApplicationUser : IdentityUser
     {
+        public ApplicationUser()
+        {
+
+        }
+
+        public ApplicationUser(string userID) : base(userID)
+        {
+
+        }
     }
 }

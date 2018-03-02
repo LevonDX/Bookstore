@@ -11,8 +11,8 @@ using System;
 namespace BookstoreCore.Migrations
 {
     [DbContext(typeof(BookstoreDBContext))]
-    [Migration("20180301095731_IdentityAdded")]
-    partial class IdentityAdded
+    [Migration("20180302142824_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

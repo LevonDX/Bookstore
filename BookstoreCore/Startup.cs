@@ -32,7 +32,9 @@ namespace BookstoreCore
                     b => b.MigrationsAssembly("BookstoreCore"));
             });
 
-            services.AddIdentity<IdentityUser, IdentityRole>();
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<BookstoreDBContext>()
+                .AddDefaultTokenProviders();
 
             services.AddMvc();
         }
@@ -46,11 +48,14 @@ namespace BookstoreCore
                 app.UseBrowserLink();
             }
 
+            app.UseAuthentication();
+
             app.UseMvc(route => route.MapRoute(
                 name: "Default",
                 template: "{controller=Home}/{Action=Index}/{id?}"));
 
-            Helpers.DatabaseSeeding.SeedBooks(dbContext);
+            Helpers.DatabaseSeeding.SeedBooks(app);
+            Helpers.DatabaseSeeding.SeedAdminUser(app).Wait();
         }
     }
 }

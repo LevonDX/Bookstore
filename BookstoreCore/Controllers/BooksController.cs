@@ -56,6 +56,7 @@ namespace BookstoreCore.Controllers
             return RedirectToAction("Index", "Books");
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult Add()
         {

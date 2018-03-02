@@ -39,8 +39,7 @@ namespace BookstoreCore
             services.AddMvc();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, 
-            BookstoreDBContext dbContext)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -56,6 +55,6 @@ namespace BookstoreCore
 
             Helpers.DatabaseSeeding.SeedBooks(app);
             Helpers.DatabaseSeeding.SeedAdminUser(app).Wait();
-        }
+        } 
     }
 }

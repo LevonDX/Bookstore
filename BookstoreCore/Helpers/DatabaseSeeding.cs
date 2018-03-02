@@ -23,7 +23,6 @@ namespace BookstoreCore.Helpers
             using (IServiceScope scope = scopeFactory.CreateScope())
             {
                 BookstoreDBContext dBContext = scope.ServiceProvider.GetRequiredService<BookstoreDBContext>();
-                bool databaseExists = (dBContext.GetService<IDatabaseCreator>() as RelationalDatabaseCreator).Exists();
 
                 if (!dBContext.Database.GetMigrations().Any())
                     return;
@@ -47,14 +46,15 @@ namespace BookstoreCore.Helpers
                 dBContext.SaveChanges();
             }
         }
+
         public static async Task SeedAdminUser(IApplicationBuilder app)
         {
-            IServiceScopeFactory scopeFactory = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>();
+            IServiceScopeFactory scopeFactory = 
+                app.ApplicationServices.GetRequiredService<IServiceScopeFactory>();
 
             using (IServiceScope scope = scopeFactory.CreateScope())
             {
                 BookstoreDBContext dBContext = scope.ServiceProvider.GetRequiredService<BookstoreDBContext>();
-                bool databaseExists = (dBContext.GetService<IDatabaseCreator>() as RelationalDatabaseCreator).Exists();
 
                 if (!dBContext.Database.GetMigrations().Any())
                     return;
@@ -66,7 +66,10 @@ namespace BookstoreCore.Helpers
                 if (admin != null)
                     return;
 
-                admin = new ApplicationUser(UserRoles.Admin.ToString());
+                admin = new ApplicationUser(UserRoles.Admin.ToString())
+                {
+                    Email = "Admin@outlook.com"
+                };
 
                 await userManager.CreateAsync(admin, adminPassword);
             }

@@ -22,11 +22,6 @@ namespace Domain
                 .HasKey(k => new { k.BookID, k.AuthorID });            
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            base.OnConfiguring(optionsBuilder);
-        }
-
         public DbSet<Book> Books { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<BookAuthors> BookAuthors { get; set; }

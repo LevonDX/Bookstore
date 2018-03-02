@@ -1,0 +1,21 @@
+﻿@using BookstoreCore.Models.AccountViewModels
+@model LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h2>Login</h2>
+
+<form asp-controller="Account" asp-action="Login">
+    <div>
+        <label>Username</label>
+        <input asp-for="UserName" />
+    </div>
+
+    <div>
+        <label>Password</label>
+        <input asp-for="Password" />
+    </div>
+
+    <button>Login</button>
+</form>

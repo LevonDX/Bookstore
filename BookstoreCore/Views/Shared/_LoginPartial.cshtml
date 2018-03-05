@@ -1,0 +1,6 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> _userManager
+@inject SignInManager<ApplicationUser> _signingManager
+
+
+<h3>Welcome, @((await _userManager.GetUserAsync(Context.User)).UserName)</h3>

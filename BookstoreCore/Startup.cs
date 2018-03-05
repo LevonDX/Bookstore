@@ -32,7 +32,13 @@ namespace BookstoreCore
                     b => b.MigrationsAssembly("BookstoreCore"));
             });
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>(option => 
+            {
+                option.Password.RequireDigit = false;
+                option.Password.RequireLowercase = false;
+                option.Password.RequireNonAlphanumeric = false;
+                option.Password.RequireUppercase = false;
+            })
                 .AddEntityFrameworkStores<BookstoreDBContext>()
                 .AddDefaultTokenProviders();
 
@@ -47,6 +53,7 @@ namespace BookstoreCore
                 app.UseBrowserLink();
             }
 
+            app.UseStaticFiles();
             app.UseAuthentication();
 
             app.UseMvc(route => route.MapRoute(

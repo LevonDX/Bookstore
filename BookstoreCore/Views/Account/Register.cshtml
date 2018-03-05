@@ -1,0 +1,31 @@
+﻿@using BookstoreCore.Models.AccountViewModels
+@model RegistrationViewModel;
+@{
+    ViewData["Title"] = "Registration";
+}
+
+<h2>Registration</h2>
+
+<form asp-action="Register" asp-controller="Account">
+    @Html.HiddenFor(m => m.ReturnUrl)
+    <label>User Name</label>
+    <input asp-for="UserName"/>
+
+    <div>
+        <label>Password</label>
+        <input asp-for="Password" />
+    </div>
+
+    <div>
+        <label>Confirm Password</label>
+        <input asp-for="ConfPassword" />
+    </div>
+
+    <div>
+        <label>Remember Me</label>
+        <input asp-for="RememberMe" />
+    </div>
+
+    <button>Register</button>
+
+</form>

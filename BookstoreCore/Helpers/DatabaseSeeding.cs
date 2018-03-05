@@ -49,7 +49,7 @@ namespace BookstoreCore.Helpers
 
         public static async Task SeedAdminUser(IApplicationBuilder app)
         {
-            IServiceScopeFactory scopeFactory = 
+            IServiceScopeFactory scopeFactory =
                 app.ApplicationServices.GetRequiredService<IServiceScopeFactory>();
 
             using (IServiceScope scope = scopeFactory.CreateScope())
@@ -71,7 +71,16 @@ namespace BookstoreCore.Helpers
                     Email = "Admin@outlook.com"
                 };
 
-                await userManager.CreateAsync(admin, adminPassword);
+                RoleManager<IdentityRole> roleManager =
+                    scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+                IdentityRole role = new IdentityRole() { Name = UserRoles.Admin.ToString() };
+
+                if ((await userManager.CreateAsync(admin, adminPassword)).Succeeded &&
+                    ((await roleManager.CreateAsync(role)).Succeeded))
+                {
+                    await userManager.AddToRoleAsync(admin, UserRoles.Admin.ToString());
+                }
             }
         }
     }

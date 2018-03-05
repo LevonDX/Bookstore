@@ -6,14 +6,19 @@ using System.Threading.Tasks;
 
 namespace BookstoreCore.Models.AccountViewModels
 {
-    public class LoginViewModel
+    public class RegistrationViewModel
     {
         [Required]
         public string UserName { get; set; }
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+        [Required]
+        [Compare(nameof(Password))]
+        public string ConfPassword { get; set; }
 
-        public string ReturnUrl { get; set; } = null;
+        public bool RememberMe { get; set; }
+
+        public string ReturnUrl { get; set; }
     }
 }

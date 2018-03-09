@@ -2,5 +2,14 @@
 @inject UserManager<ApplicationUser> _userManager
 @inject SignInManager<ApplicationUser> _signingManager
 
-
-<h3>Welcome, @((await _userManager.GetUserAsync(Context.User)).UserName)</h3>
+@if (_signingManager.IsSignedIn(User))
+{
+    <h3>Welcome, @((await _userManager.GetUserAsync(Context.User)).UserName)</h3>
+    <a asp-controller="Account" asp-action="Logout">Logout</a>
+}
+else
+{
+    <h3>
+        <a asp-controller="Account" asp-action="Login"><i class="flaticon-people">Sign in</i></a>
+    </h3>
+}

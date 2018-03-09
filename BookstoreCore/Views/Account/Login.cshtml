@@ -4,19 +4,91 @@
     ViewData["Title"] = "Login";
 }
 
-<h2>Login</h2>
 
-<form asp-controller="Account" asp-action="Login">
-    @Html.HiddenFor(m => m.ReturnUrl)
-    <div>
-        <label>Username</label>
-        <input asp-for="UserName" />
+<div class="breadcrumbs-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumbs">
+                    <h2>LOGIN/REGISTER</h2>
+                    <ul class="breadcrumbs-list">
+                        <li>
+                            <a title="Return to Home" href="index.html">Home</a>
+                        </li>
+                        <li>Login</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div>
-        <label>Password</label>
-        <input asp-for="Password" />
+</div>
+<div class="login-account section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <form class="create-account-form" asp-controller="Account" asp-action="Register">
+                    <h2 class="heading-title">
+                        CREATE AN ACCOUNT
+                    </h2>
+                    <p class="form-row">
+                        <input asp-for="UserName" placeholder="Email address">
+                    </p>
+                    <p class="form-row">
+                        <input asp-for="Password" placeholder="Password">
+                    </p>
+                    <p class="form-row">
+                        <input asp-for="ConfPassword" placeholder="Confirm Password">
+                    </p>
+                    <div class="submit">
+                        <button class="btn-default">
+                            <span>
+                                <i class="fa fa-user left"></i>
+                                Create an account
+                            </span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <form class="create-account-form" asp-controller="Account" asp-action="Login">
+                    <h2 class="heading-title">
+                        ALREADY RESIGTERED?
+                    </h2>
+                    <p class="form-row">
+                        <input asp-for="UserName" placeholder="User Name">
+                        <span asp-validation-for="UserName"></span>
+                    </p>
+                    <p class="form-row">
+                        <input asp-for="Password" placeholder="Password">
+                        <span asp-validation-for="Password"></span>
+                    </p>
+                    <p class="lost-password form-group">
+                        <a href="#" rel="nofollow">Forgot your password?</a>
+                    </p>
+                    <div class="submit">
+                        <button type="submit" class="btn-default">
+                            <span>
+                                <i class="fa fa-user left"></i>
+                                SING IN
+                            </span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
+</div>
+@*<form asp-controller="Account" asp-action="Login">
+        @Html.HiddenFor(m => m.ReturnUrl)
+        <div>
+            <label>Username</label>
+            <input asp-for="UserName" />
+        </div>
 
-    <button>Login</button>
-</form>
+        <div>
+            <label>Password</label>
+            <input asp-for="Password" />
+        </div>
+
+        <button>Login</button>
+    </form>*@

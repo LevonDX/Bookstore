@@ -47,32 +47,70 @@
                         <i class="fa fa-star"></i>
                     </div>
                     <h2>Cold mountain</h2>
-                    <div class="availability">
-                        <span>In stock</span>
+
+
+                    <div class="col-md-10 col-sm-6">
+                        <form class="create-account-form" asp-controller="Books" asp-action="Add">
+                            <h2 class="heading-title">
+                                ALREADY RESIGTERED?
+                            </h2>
+                            <p class="form-row">
+                                <input asp-for="Title" placeholder="Enter Book title">
+                                <span asp-validation-for="Title"></span>
+                            </p>
+
+                            <div>
+                                <label asp-for="Authors"></label>
+                                <select asp-for="AuthorID" asp-items="(IEnumerable<SelectListItem>)Model.Authors"> </select>
+                                <span>
+                                    <button class="btn-default" onclick="openAuthor();return false">Add Author</button>
+                                </span>
+                                <div hidden id="authorDiv">
+                                    <input id="authorName" type="text" placeholder="Add Author Name" />
+                                    <input id="authorSurname" type="text" placeholder="Add Author Surname" />
+                                    <button class="btn-default" onclick="addAuthor();return false">
+                                        Add
+                                    </button>
+
+                                </div>
+                            </div>
+
+                            <div class="submit">
+                                <button type="submit" class="btn-default">
+                                    <span>
+                                        Save
+                                    </span>
+                                </button>
+                            </div>
+                        </form>
                     </div>
-                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. </p>
-                    <div class="single-product-price">
-                        <h2>$49.66</h2>
-                    </div>
-                    <div class="product-attributes clearfix">
-                        <span class="pull-left" id="quantity-wanted-p">
-                            <span class="dec qtybutton">-</span>
-                            <input type="text" value="1" class="cart-plus-minus-box">
-                            <span class="inc qtybutton">+</span>
-                        </span>
-                        <span>
-                            <a class="cart-btn btn-default" href="cart.html">
-                                <i class="flaticon-shop"></i>
-                                Add to cart
+
+                    @*<div class="availability">
+                            <span>In stock</span>
+                        </div>
+                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. </p>
+                        <div class="single-product-price">
+                            <h2>$49.66</h2>
+                        </div>
+                        <div class="product-attributes clearfix">
+                            <span class="pull-left" id="quantity-wanted-p">
+                                <span class="dec qtybutton">-</span>
+                                <input type="text" value="1" class="cart-plus-minus-box">
+                                <span class="inc qtybutton">+</span>
+                            </span>
+                            <span>
+                                <a class="cart-btn btn-default" href="cart.html">
+                                    <i class="flaticon-shop"></i>
+                                    Add to cart
+                                </a>
+                            </span>
+                        </div>
+                        <div class="add-to-wishlist">
+                            <a class="wish-btn" href="cart.html">
+                                <i class="fa fa-heart-o"></i>
+                                ADD TO WISHLIST
                             </a>
-                        </span>
-                    </div>
-                    <div class="add-to-wishlist">
-                        <a class="wish-btn" href="cart.html">
-                            <i class="fa fa-heart-o"></i>
-                            ADD TO WISHLIST
-                        </a>
-                    </div>
+                        </div>*@
                     <div class="single-product-categories">
                         <label>Categories:</label>
                         <span>e-book, biological, business</span>
@@ -141,18 +179,58 @@
 </div>
 @*<h2>Add</h2>
 
-<form asp-action="Add" asp-controller="Books">
-    <div>
-        <label asp-for="Title"></label>
-        <input asp-for="Title" type="text" />
-    </div>
+    <form asp-action="Add" asp-controller="Books">
+        <div>
+            <label asp-for="Title"></label>
+            <input asp-for="Title" type="text" />
+        </div>
 
-    <div>
-        <label asp-for="Authors"></label>
-        <select asp-for="AuthorID" asp-items="(IEnumerable<SelectListItem>)Model.Authors"> </select>
-    </div>
+        <div>
+            <label asp-for="Authors"></label>
+            <select asp-for="AuthorID" asp-items="(IEnumerable<SelectListItem>)Model.Authors"> </select>
+        </div>
 
-    <div>
-        <button>Save</button>
-    </div>
-</form>*@
+        <div>
+            <button>Save</button>
+        </div>
+    </form>*@
+
+@section Scripts{
+    <script type="text/javascript">
+
+        function openAuthor() {
+            var authorName = document.getElementById("authorDiv");
+            authorName.removeAttribute("hidden");
+        }
+
+        function addAuthor() {
+            debugger
+            var authorName = $('#authorName').val();
+            var authorSurname = $('#authorSurname').val();
+            debugger
+
+            $.ajax({
+                type: "POST",
+                url: "/Books/AddAuthor",
+                data: {
+                    name: authorName,
+                    surname: authorSurname
+                },
+                sucess: function () {
+
+                },
+
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('failed to add author: ' + thrownError);
+                }
+            });
+
+        }
+
+
+
+
+    </script>
+
+
+}

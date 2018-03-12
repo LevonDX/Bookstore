@@ -30,22 +30,25 @@ namespace BookstoreCore.Controllers
         {
             LoginViewModel model = new LoginViewModel() { ReturnUrl = returnUrl };
 
-            return View(model);
+            return View(new LoginRegisterViewModel()
+            {
+                LoginModel = model
+            });
         }
 
         [HttpPost]
-        public async Task<ActionResult> Login(LoginViewModel model)
+        public async Task<ActionResult> Login(LoginRegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                ApplicationUser user = await _userManager.FindByNameAsync(model.UserName);
+                ApplicationUser user = await _userManager.FindByNameAsync(model.LoginModel.UserName);
 
-                var result = await _signInManager.PasswordSignInAsync(user.UserName, model.Password,
+                var result = await _signInManager.PasswordSignInAsync(user.UserName, model.LoginModel.Password,
                     false, false);
 
                 if (result.Succeeded)
                 {
-                    string returnUrl = model.ReturnUrl;
+                    string returnUrl = model.LoginModel.ReturnUrl;
 
                     if (returnUrl == null)
                         return RedirectToAction("Index", "Books");
@@ -72,34 +75,37 @@ namespace BookstoreCore.Controllers
         [HttpGet]
         public IActionResult Register(string returnUrl)
         {
-            RegistrationViewModel model = new RegistrationViewModel()
+            LoginRegisterViewModel model = new LoginRegisterViewModel()
             {
-                ReturnUrl = returnUrl
+                RegistrationModel = new RegistrationViewModel() { ReturnUrl = returnUrl }
             };
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(RegistrationViewModel model)
+        public async Task<IActionResult> Register(LoginRegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
                 ApplicationUser user = new ApplicationUser()
                 {
-                    UserName = model.UserName
+                    UserName = model.RegistrationModel.UserName
                 };
-                IdentityResult result = await _userManager.CreateAsync(user, model.Password);
+                IdentityResult result = await _userManager.CreateAsync(user, model.RegistrationModel.Password);
                 if (result.Succeeded)
                 {
                     IdentityRole role = new IdentityRole(UserRoles.Client.ToString());
+
                     await _roleManager.CreateAsync(role);
                     await _userManager.AddToRoleAsync(user, UserRoles.Client.ToString());
-                    await _signInManager.PasswordSignInAsync(user.UserName, model.Password, true, false);
-                    if (model.ReturnUrl == null)
+                    await _signInManager.PasswordSignInAsync(user.UserName,
+                        model.RegistrationModel.Password, true, false);
+
+                    if (model.RegistrationModel.ReturnUrl == null)
                     {
                         return RedirectToAction("Index", "Books");
                     }
-                    return Redirect(model.ReturnUrl);
+                    return Redirect(model.RegistrationModel.ReturnUrl);
                 }
             }
             return View();

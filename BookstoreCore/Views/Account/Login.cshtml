@@ -1,5 +1,5 @@
 ﻿@using BookstoreCore.Models.AccountViewModels
-@model LoginViewModel
+@model LoginRegisterViewModel
 @{
     ViewData["Title"] = "Login";
 }
@@ -31,13 +31,13 @@
                         CREATE AN ACCOUNT
                     </h2>
                     <p class="form-row">
-                        <input asp-for="UserName" placeholder="Email address">
+                        <input asp-for="RegistrationModel.UserName" placeholder="Email address">
                     </p>
                     <p class="form-row">
-                        <input asp-for="Password" placeholder="Password">
+                        <input asp-for="RegistrationModel.Password" placeholder="Password">
                     </p>
                     <p class="form-row">
-                        <input asp-for="ConfPassword" placeholder="Confirm Password">
+                        <input asp-for="RegistrationModel.ConfPassword" placeholder="Confirm Password">
                     </p>
                     <div class="submit">
                         <button class="btn-default">
@@ -55,12 +55,12 @@
                         ALREADY RESIGTERED?
                     </h2>
                     <p class="form-row">
-                        <input asp-for="UserName" placeholder="User Name">
-                        <span asp-validation-for="UserName"></span>
+                        <input asp-for="LoginModel.UserName" placeholder="User Name">
+                        <span asp-validation-for="LoginModel.UserName"></span>
                     </p>
                     <p class="form-row">
-                        <input asp-for="Password" placeholder="Password">
-                        <span asp-validation-for="Password"></span>
+                        <input asp-for="LoginModel.Password" placeholder="Password">
+                        <span asp-validation-for="LoginModel.Password"></span>
                     </p>
                     <p class="lost-password form-group">
                         <a href="#" rel="nofollow">Forgot your password?</a>

@@ -135,6 +135,20 @@ namespace BookstoreCore.Controllers
             return View();
         }
 
+         [HttpPost]
+         public async Task AddAuthor(string name, string surname)
+        {
+            Author author = new Author
+            {
+                Name = name,
+                Surname = surname
+            };
+
+            await _dbContext.Authors.AddAsync(author);
+            await _dbContext.SaveChangesAsync();
+            
+        }
+
         [NonAction]
         private IEnumerable<SelectListItem> GetSelectListItem(
             IEnumerable<Author> authors)

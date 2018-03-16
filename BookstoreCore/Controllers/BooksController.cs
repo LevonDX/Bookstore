@@ -71,7 +71,7 @@ namespace BookstoreCore.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Add(AddEditBookViewModel model)
+        public async Task<ActionResult> Add(AddEditBookViewModel model, string author)
         {
             if (ModelState.IsValid)
             {
@@ -99,7 +99,7 @@ namespace BookstoreCore.Controllers
         {
             Book bookToEdit = await _dbContext
                .Books
-               .Where(b => !b.Deleted && b.ID == bookID) 
+               .Where(b => !b.Deleted && b.ID == bookID)
                .Include(b => b.BookAuthors)
                     .ThenInclude(b => b.Author)
                .SingleAsync();
@@ -122,7 +122,7 @@ namespace BookstoreCore.Controllers
         [HttpPost]
         public async Task<ActionResult> Edit(AddEditBookViewModel bookModel)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 Book book = await _dbContext.Books.FindAsync(bookModel.Id);
                 book.Title = bookModel.Title;
@@ -135,8 +135,8 @@ namespace BookstoreCore.Controllers
             return View();
         }
 
-         [HttpPost]
-         public async Task AddAuthor(string name, string surname)
+        [HttpPost]
+        public async Task AddAuthor(string name, string surname)
         {
             Author author = new Author
             {
@@ -146,7 +146,17 @@ namespace BookstoreCore.Controllers
 
             await _dbContext.Authors.AddAsync(author);
             await _dbContext.SaveChangesAsync();
-            
+        }
+
+        [HttpPost]
+        public ActionResult GetAuthors()
+        {
+            AddEditBookViewModel model = new AddEditBookViewModel()
+            {
+                Authors = GetSelectListItem(_dbContext.Authors)
+            };
+
+            return PartialView("_AuthorsListPartial", model);
         }
 
         [NonAction]

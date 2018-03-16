@@ -60,8 +60,9 @@
                             </p>
 
                             <div>
-                                <label asp-for="Authors"></label>
-                                <select asp-for="AuthorID" asp-items="(IEnumerable<SelectListItem>)Model.Authors"> </select>
+                                <div id="authors">
+                                    @Html.Partial("_AuthorsListPartial")
+                                </div>
                                 <span>
                                     <button class="btn-default" onclick="openAuthor();return false">Add Author</button>
                                 </span>
@@ -204,10 +205,8 @@
         }
 
         function addAuthor() {
-            debugger
             var authorName = $('#authorName').val();
             var authorSurname = $('#authorSurname').val();
-            debugger
 
             $.ajax({
                 type: "POST",
@@ -217,7 +216,8 @@
                     surname: authorSurname
                 },
                 sucess: function () {
-
+                    debugger
+                    $("#authors").load("/Books/GetAuthors");
                 },
 
                 error: function (xhr, ajaxOptions, thrownError) {
@@ -226,10 +226,6 @@
             });
 
         }
-
-
-
-
     </script>
 
 
